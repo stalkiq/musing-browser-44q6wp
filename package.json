@@ -5,17 +5,21 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@aws-amplify/ui-react": "^6.13.1",
     "@react-three/drei": "9.92.7",
     "@react-three/fiber": "8.15.12",
     "@react-three/postprocessing": "2.15.11",
     "@types/three": "0.160.0",
+    "aws-amplify": "^6.15.7",
     "r3f-perf": "7.1.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-router-dom": "^7.9.4",
     "react-scripts": "5.0.1",
     "three": "0.160.0"
   },
   "devDependencies": {
+    "@aws-amplify/cli": "^14.2.0",
     "typescript": "3.8.3"
   },
   "scripts": {

@@ -3,20 +3,45 @@ import { easing } from "maath"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { Sky, Bvh } from "@react-three/drei"
 import { EffectComposer, Selection, Outline, N8AO, TiltShift2, ToneMapping } from "@react-three/postprocessing"
+import { Routes, Route, Link, useLocation } from "react-router-dom"
 import { Scene } from "./Scene"
+import { ImagePricer } from "./ImagePricer"
 
-export const App = () => (
-  <Canvas flat dpr={[1, 1.5]} gl={{ antialias: false }} camera={{ position: [0, 1, 6], fov: 25, near: 1, far: 20 }}>
-    <ambientLight intensity={1.5 * Math.PI} />
-    <Sky />
-    <Bvh firstHitOnly>
-      <Selection>
-        <Effects />
-        <Scene rotation={[0, Math.PI / 2, 0]} position={[0, -1, -0.85]} />
-      </Selection>
-    </Bvh>
-  </Canvas>
-)
+function Scene3D() {
+  return (
+    <Canvas flat dpr={[1, 1.5]} gl={{ antialias: false }} camera={{ position: [0, 1, 6], fov: 25, near: 1, far: 20 }}>
+      <ambientLight intensity={1.5 * Math.PI} />
+      <Sky />
+      <Bvh firstHitOnly>
+        <Selection>
+          <Effects />
+          <Scene rotation={[0, Math.PI / 2, 0]} position={[0, -1, -0.85]} />
+        </Selection>
+      </Bvh>
+    </Canvas>
+  )
+}
+
+export const App = () => {
+  const location = useLocation()
+  
+  return (
+    <>
+      <nav className="nav-menu">
+        <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+          3D Kitchen
+        </Link>
+        <Link to="/image-pricer" className={location.pathname === "/image-pricer" ? "active" : ""}>
+          Image Pricer
+        </Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Scene3D />} />
+        <Route path="/image-pricer" element={<ImagePricer />} />
+      </Routes>
+    </>
+  )
+}
 
 function Effects() {
   const { size } = useThree()

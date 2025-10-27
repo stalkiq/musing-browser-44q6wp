@@ -20,18 +20,22 @@ export function Scene(props) {
   const debouncedHover = useCallback(debounce(hover, 30), [])
   const over = (name) => (e) => (e.stopPropagation(), debouncedHover(name))
   // Get the priced item
-  const price = { KNOXHULT: 5999, BRÖNDEN: 433, SKAFTET: 77, FANBYN: 255, VOXLÖV: 1699, LIVSVERK: 44 }[hovered] ?? 5999
+  const price = { KNOXHULT: 5999, BRÖNDEN: 433, SKAFTET: 77, FANBYN: 255, VOXLÖV: 1699, LIVSVERK: 44, BLANDA: 129, CYLINDER: 199 }[hovered] ?? 5999
   return (
     <>
       <group {...props}>
-        <mesh geometry={nodes.vase1.geometry} material={materials.gray} material-envMap={env} />
+        <Select enabled={hovered === "CYLINDER"} onPointerOver={over("CYLINDER")} onPointerOut={() => debouncedHover(null)}>
+          <mesh geometry={nodes.vase1.geometry} material={materials.gray} material-envMap={env} />
+        </Select>
         <mesh geometry={nodes.bottle.geometry} material={materials.gray} material-envMap={env} />
         <mesh geometry={nodes.walls_1.geometry} material={materials.floor} />
         <mesh geometry={nodes.walls_2.geometry} material={materials.walls} />
         <mesh geometry={nodes.plant_1.geometry} material={materials.potted_plant_01_leaves} />
         <mesh geometry={nodes.plant_2.geometry} material={materials.potted_plant_01_pot} />
         <mesh geometry={nodes.cuttingboard.geometry} material={materials.walls} />
-        <mesh geometry={nodes.bowl.geometry} material={materials.walls} />
+        <Select enabled={hovered === "BLANDA"} onPointerOver={over("BLANDA")} onPointerOut={() => debouncedHover(null)}>
+          <mesh geometry={nodes.bowl.geometry} material={materials.walls} />
+        </Select>
         <Select enabled={hovered === "BRÖNDEN"} onPointerOver={over("BRÖNDEN")} onPointerOut={() => debouncedHover(null)}>
           <mesh geometry={nodes.carpet.geometry} material={materials.carpet} />
         </Select>
