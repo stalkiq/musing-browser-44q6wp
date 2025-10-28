@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react"
+import heic2any from "heic2any"
 
 export function ImagePricer() {
   const [image, setImage] = useState(null)
@@ -12,24 +13,44 @@ export function ImagePricer() {
   const imageRef = useRef(null)
   const canvasRef = useRef(null)
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0]
+  const handleImageUpload = async (e) => {
+    let file = e.target.files[0]
     if (file) {
       console.log("File selected:", file.name, file.type, file.size)
       setLoading(true)
-      const reader = new FileReader()
-      reader.onload = (event) => {
-        console.log("Image loaded successfully!")
-        setImage(event.target.result)
-        setPricePoints([]) // Reset price points when new image is loaded
+
+      try {
+        // Check if file is HEIC/HEIF and convert it
+        if (file.type === "image/heic" || file.type === "image/heif" || file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
+          console.log("Converting HEIC/HEIF to JPEG...")
+          const convertedBlob = await heic2any({
+            blob: file,
+            toType: "image/jpeg",
+            quality: 0.9
+          })
+          // heic2any can return an array of blobs for multi-image HEIC files
+          file = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob
+          console.log("HEIC conversion successful!")
+        }
+
+        const reader = new FileReader()
+        reader.onload = (event) => {
+          console.log("Image loaded successfully!")
+          setImage(event.target.result)
+          setPricePoints([]) // Reset price points when new image is loaded
+          setLoading(false)
+        }
+        reader.onerror = (error) => {
+          console.error("Error loading image:", error)
+          alert("Error loading image. Please try again.")
+          setLoading(false)
+        }
+        reader.readAsDataURL(file)
+      } catch (error) {
+        console.error("Error processing image:", error)
+        alert("Error processing image. Please try a different format or file.")
         setLoading(false)
       }
-      reader.onerror = (error) => {
-        console.error("Error loading image:", error)
-        alert("Error loading image. Please try again.")
-        setLoading(false)
-      }
-      reader.readAsDataURL(file)
     }
   }
 
@@ -205,7 +226,7 @@ export function ImagePricer() {
         <p>Upload an image and click on items to add prices</p>
         <input
           type="file"
-          accept="image/*"
+          accept="image/*,.heic,.heif"
           onChange={handleImageUpload}
           className="file-input"
           id="file-upload"
