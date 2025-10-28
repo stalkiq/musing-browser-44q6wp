@@ -126,23 +126,26 @@ export function ImagePricer() {
       // Draw the image
       ctx.drawImage(img, 0, 0)
 
+      // Calculate scale factor based on image size (scale tags for larger images)
+      const scaleFactor = Math.min(canvas.width, canvas.height) / 800
+
       // Draw price tags
       pricePoints.forEach((point) => {
         const x = (point.x / 100) * canvas.width
         const y = (point.y / 100) * canvas.height
 
-        // Draw price tag background
+        // Draw price tag background (scaled)
         ctx.fillStyle = "white"
         ctx.strokeStyle = "#333"
-        ctx.lineWidth = 2
+        ctx.lineWidth = 3 * scaleFactor
 
-        const tagWidth = 150
-        const tagHeight = 60
+        const tagWidth = 150 * scaleFactor
+        const tagHeight = 60 * scaleFactor
         const tagX = x - tagWidth / 2
-        const tagY = y - tagHeight - 10
+        const tagY = y - tagHeight - (10 * scaleFactor)
 
         // Rounded rectangle for tag
-        const radius = 8
+        const radius = 8 * scaleFactor
         ctx.beginPath()
         ctx.moveTo(tagX + radius, tagY)
         ctx.lineTo(tagX + tagWidth - radius, tagY)
@@ -157,21 +160,21 @@ export function ImagePricer() {
         ctx.fill()
         ctx.stroke()
 
-        // Draw text
+        // Draw text (scaled)
         ctx.fillStyle = "#222"
-        ctx.font = "bold 16px Inter, sans-serif"
+        ctx.font = `bold ${16 * scaleFactor}px Inter, sans-serif`
         ctx.textAlign = "center"
-        ctx.fillText(point.name, x, tagY + 25)
+        ctx.fillText(point.name, x, tagY + (25 * scaleFactor))
 
         ctx.fillStyle = "#000"
-        ctx.font = "bold 20px Inter, sans-serif"
-        ctx.fillText(`$${point.price}`, x, tagY + 48)
+        ctx.font = `bold ${20 * scaleFactor}px Inter, sans-serif`
+        ctx.fillText(`$${point.price}`, x, tagY + (48 * scaleFactor))
 
-        // Draw pointer
+        // Draw pointer (scaled)
         ctx.beginPath()
         ctx.moveTo(x, y)
-        ctx.lineTo(x - 8, tagY + tagHeight)
-        ctx.lineTo(x + 8, tagY + tagHeight)
+        ctx.lineTo(x - (8 * scaleFactor), tagY + tagHeight)
+        ctx.lineTo(x + (8 * scaleFactor), tagY + tagHeight)
         ctx.closePath()
         ctx.fillStyle = "white"
         ctx.fill()
