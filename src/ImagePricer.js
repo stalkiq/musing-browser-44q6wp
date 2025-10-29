@@ -142,15 +142,26 @@ export function ImagePricer() {
         const x = (point.x / 100) * canvas.width
         const y = (point.y / 100) * canvas.height
 
+        // Measure text to determine tag width
+        ctx.font = `bold ${16 * scaleFactor}px Inter, sans-serif`
+        const nameWidth = ctx.measureText(point.name).width
+        ctx.font = `bold ${20 * scaleFactor}px Inter, sans-serif`
+        const priceWidth = ctx.measureText(`$${point.price}`).width
+        
+        // Calculate tag width based on longest text, with padding
+        const padding = 20 * scaleFactor
+        const minWidth = 150 * scaleFactor
+        const calculatedWidth = Math.max(nameWidth, priceWidth) + (padding * 2)
+        const tagWidth = Math.max(minWidth, calculatedWidth)
+        const tagHeight = 60 * scaleFactor
+        
+        const tagX = x - tagWidth / 2
+        const tagY = y - tagHeight - (10 * scaleFactor)
+
         // Draw price tag background (scaled)
         ctx.fillStyle = "white"
         ctx.strokeStyle = "#333"
         ctx.lineWidth = 3 * scaleFactor
-
-        const tagWidth = 150 * scaleFactor
-        const tagHeight = 60 * scaleFactor
-        const tagX = x - tagWidth / 2
-        const tagY = y - tagHeight - (10 * scaleFactor)
 
         // Rounded rectangle for tag
         const radius = 8 * scaleFactor
@@ -168,11 +179,22 @@ export function ImagePricer() {
         ctx.fill()
         ctx.stroke()
 
-        // Draw text (scaled)
+        // Draw text (scaled) - truncate if still too long
+        const maxTextWidth = tagWidth - (padding * 2)
+        
         ctx.fillStyle = "#222"
         ctx.font = `bold ${16 * scaleFactor}px Inter, sans-serif`
         ctx.textAlign = "center"
-        ctx.fillText(point.name, x, tagY + (25 * scaleFactor))
+        
+        // Truncate name if needed
+        let displayName = point.name
+        if (ctx.measureText(displayName).width > maxTextWidth) {
+          while (ctx.measureText(displayName + '...').width > maxTextWidth && displayName.length > 0) {
+            displayName = displayName.slice(0, -1)
+          }
+          displayName += '...'
+        }
+        ctx.fillText(displayName, x, tagY + (25 * scaleFactor))
 
         ctx.fillStyle = "#000"
         ctx.font = `bold ${20 * scaleFactor}px Inter, sans-serif`
