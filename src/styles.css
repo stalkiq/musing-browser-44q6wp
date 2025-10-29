@@ -13,7 +13,7 @@ body,
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #0a0a0a;
+  background: #0f1419;
 }
 
 /* Navigation Menu */
@@ -80,7 +80,7 @@ body {
   padding: 5rem 2rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
-  background: #0a0a0a;
+  background: #0f1419;
 }
 
 .upload-section {
@@ -655,7 +655,7 @@ body {
 /* Home Page */
 .home-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #151a28 100%);
   position: relative;
   padding: 2rem;
   overflow: hidden;
@@ -669,8 +669,9 @@ body {
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 20% 50%, rgba(192, 192, 192, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(169, 169, 169, 0.08) 0%, transparent 50%);
+    radial-gradient(circle at 20% 50%, rgba(79, 172, 254, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(192, 192, 192, 0.06) 0%, transparent 50%);
   pointer-events: none;
 }
 
@@ -693,11 +694,32 @@ body {
   font-weight: 800;
   letter-spacing: -0.02em;
   animation: fadeInUp 0.6s ease;
-  background: linear-gradient(135deg, #fff 0%, #c0c0c0 100%);
+  color: #fff;
+}
+
+.price-text {
+  background: linear-gradient(135deg, #85bb65 0%, #6ba54a 50%, #4a7c2f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 40px rgba(192, 192, 192, 0.3);
+  position: relative;
+  display: inline-block;
+  padding: 0 0.3em;
+  text-shadow: 0 0 40px rgba(133, 187, 101, 0.5);
+  filter: drop-shadow(0 0 20px rgba(133, 187, 101, 0.3));
+}
+
+.price-text::before {
+  content: '$';
+  position: absolute;
+  left: -0.3em;
+  font-size: 0.6em;
+  top: 0.2em;
+  opacity: 0.7;
+  background: linear-gradient(135deg, #85bb65 0%, #6ba54a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .home-subtitle {
@@ -728,7 +750,6 @@ body {
 }
 
 .feature-card {
-  background: rgba(25, 25, 25, 0.8);
   padding: 2.5rem;
   border-radius: 16px;
   text-decoration: none;
@@ -739,30 +760,63 @@ body {
   flex-direction: column;
   border: 1px solid rgba(192, 192, 192, 0.2);
   backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 20, 25, 0.85);
+  z-index: 0;
+  transition: all 0.3s ease;
+}
+
+.feature-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .feature-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(192, 192, 192, 0.3);
-  border: 1px solid rgba(192, 192, 192, 0.4);
-  background: rgba(30, 30, 30, 0.9);
+  box-shadow: 0 12px 40px rgba(79, 172, 254, 0.3);
+  border: 1px solid rgba(79, 172, 254, 0.4);
 }
 
-.feature-card-primary {
-  background: linear-gradient(135deg, rgba(192, 192, 192, 0.15) 0%, rgba(169, 169, 169, 0.1) 100%);
-  border: 2px solid rgba(192, 192, 192, 0.4);
-  box-shadow: 0 8px 32px rgba(192, 192, 192, 0.2), inset 0 0 20px rgba(192, 192, 192, 0.05);
+.feature-card:hover::before {
+  background: rgba(15, 20, 25, 0.75);
 }
 
-.feature-card-primary:hover {
-  box-shadow: 0 12px 48px rgba(192, 192, 192, 0.4), inset 0 0 30px rgba(192, 192, 192, 0.1);
-  border: 2px solid rgba(192, 192, 192, 0.6);
+.feature-card-pricing {
+  background: 
+    linear-gradient(135deg, rgba(133, 187, 101, 0.1) 0%, rgba(107, 165, 74, 0.05) 100%),
+    url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><text x="10" y="50" font-size="40" fill="%2385bb65" opacity="0.1">$</text><text x="50" y="80" font-size="30" fill="%2385bb65" opacity="0.08">$$</text></svg>');
+  background-size: cover, 200px 200px;
+  border: 2px solid rgba(133, 187, 101, 0.4);
+  box-shadow: 0 8px 32px rgba(133, 187, 101, 0.2);
 }
 
-.feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 0 10px rgba(192, 192, 192, 0.3));
+.feature-card-pricing:hover {
+  box-shadow: 0 12px 48px rgba(133, 187, 101, 0.4);
+  border: 2px solid rgba(133, 187, 101, 0.6);
+}
+
+.feature-card-3d {
+  background: 
+    linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%),
+    radial-gradient(circle at 30% 40%, rgba(79, 172, 254, 0.15) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(168, 85, 247, 0.1) 0%, transparent 60%);
+  border: 2px solid rgba(79, 172, 254, 0.3);
+}
+
+.feature-card-3d:hover {
+  box-shadow: 0 12px 48px rgba(79, 172, 254, 0.4);
+  border: 2px solid rgba(79, 172, 254, 0.5);
 }
 
 .feature-card h2 {
@@ -877,24 +931,95 @@ body {
 
 .use-case {
   text-align: center;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
   border-radius: 12px;
   transition: all 0.3s ease;
-  border: 1px solid transparent;
+  border: 1px solid rgba(192, 192, 192, 0.2);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+}
+
+.use-case::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.use-case > * {
+  position: relative;
+  z-index: 1;
+}
+
+.use-case-ecommerce {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(251, 191, 36, 0.02) 100%);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.use-case-ecommerce::before {
+  background: radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.3) 0%, transparent 70%);
+}
+
+.use-case-realestate {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(96, 165, 250, 0.02) 100%);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.use-case-realestate::before {
+  background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+}
+
+.use-case-design {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.05) 0%, rgba(244, 114, 182, 0.02) 100%);
+  border-color: rgba(236, 72, 153, 0.2);
+}
+
+.use-case-design::before {
+  background: radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.3) 0%, transparent 70%);
+}
+
+.use-case-inventory {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(167, 139, 250, 0.02) 100%);
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.use-case-inventory::before {
+  background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
 }
 
 .use-case:hover {
-  background: rgba(192, 192, 192, 0.1);
   transform: translateY(-4px);
-  border: 1px solid rgba(192, 192, 192, 0.3);
-  box-shadow: 0 4px 16px rgba(192, 192, 192, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-.use-case-emoji {
-  font-size: 3rem;
-  display: block;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 0 8px rgba(192, 192, 192, 0.3));
+.use-case:hover::before {
+  opacity: 0.2;
+}
+
+.use-case-ecommerce:hover {
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+}
+
+.use-case-realestate:hover {
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+}
+
+.use-case-design:hover {
+  border-color: rgba(236, 72, 153, 0.5);
+  box-shadow: 0 8px 24px rgba(236, 72, 153, 0.3);
+}
+
+.use-case-inventory:hover {
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
 }
 
 .use-case h3 {
