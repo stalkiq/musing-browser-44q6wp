@@ -663,6 +663,73 @@ body {
   border-top: 1px solid #f0f0f0;
 }
 
+/* Mobile Download Modal */
+.mobile-download-modal {
+  background: rgba(20, 20, 20, 0.95);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(192, 192, 192, 0.3);
+  min-width: 300px;
+  max-width: 90%;
+  animation: slideUp 0.3s ease;
+  backdrop-filter: blur(20px);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.mobile-download-modal h3 {
+  margin: 0 0 1rem;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
+}
+
+.mobile-instructions {
+  color: #a9a9a9;
+  margin: 0 0 1.5rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  text-align: left;
+  padding: 1rem;
+  background: rgba(79, 172, 254, 0.1);
+  border-left: 3px solid #4facfe;
+  border-radius: 4px;
+}
+
+.mobile-instructions strong {
+  color: #c0c0c0;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.mobile-image-container {
+  margin: 1.5rem 0;
+  background: rgba(40, 40, 40, 0.5);
+  border-radius: 8px;
+  padding: 0.5rem;
+  border: 2px solid rgba(192, 192, 192, 0.2);
+}
+
+.mobile-download-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-download-image:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.mobile-close-button {
+  width: 100%;
+  margin-top: 1rem;
+}
+
 /* Home Page */
 .home-page {
   min-height: 100vh;

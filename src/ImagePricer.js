@@ -10,6 +10,8 @@ export function ImagePricer() {
   const [loading, setLoading] = useState(false)
   const [shareUrl, setShareUrl] = useState(null)
   const [showShareModal, setShowShareModal] = useState(false)
+  const [showMobileDownload, setShowMobileDownload] = useState(false)
+  const [downloadImageUrl, setDownloadImageUrl] = useState(null)
   const imageRef = useRef(null)
   const canvasRef = useRef(null)
 
@@ -110,6 +112,12 @@ export function ImagePricer() {
     }
   }, [])
 
+  // Check if user is on mobile
+  const isMobile = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+           (window.innerWidth <= 768)
+  }
+
   // Download image with price tags
   const handleDownload = () => {
     if (!image) return
@@ -181,15 +189,25 @@ export function ImagePricer() {
         ctx.stroke()
       })
 
-      // Download
-      canvas.toBlob((blob) => {
-        const url = URL.createObjectURL(blob)
-        const a = document.createElement("a")
-        a.href = url
-        a.download = `priced-items-${Date.now()}.png`
-        a.click()
-        URL.revokeObjectURL(url)
-      })
+      // Convert canvas to data URL
+      const dataUrl = canvas.toDataURL("image/png")
+      
+      // Check if mobile
+      if (isMobile()) {
+        // Show modal with instructions for mobile
+        setDownloadImageUrl(dataUrl)
+        setShowMobileDownload(true)
+      } else {
+        // Desktop: Download normally
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob)
+          const a = document.createElement("a")
+          a.href = url
+          a.download = `priced-items-${Date.now()}.png`
+          a.click()
+          URL.revokeObjectURL(url)
+        })
+      }
     }
 
     img.src = image
@@ -377,6 +395,30 @@ export function ImagePricer() {
             <p className="share-note">
               Note: The link contains all your image data. Works without any backend!
             </p>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Download Modal */}
+      {showMobileDownload && downloadImageUrl && (
+        <div className="price-form-overlay" onClick={() => setShowMobileDownload(false)}>
+          <div className="mobile-download-modal" onClick={(e) => e.stopPropagation()}>
+            <h3>Save to Photos</h3>
+            <p className="mobile-instructions">
+              <strong>iOS:</strong> Tap and hold the image below, then select "Add to Photos" or "Save Image"
+              <br /><br />
+              <strong>Android:</strong> Tap and hold the image below, then select "Download image" or "Save image"
+            </p>
+            <div className="mobile-image-container">
+              <img 
+                src={downloadImageUrl} 
+                alt="Priced items" 
+                className="mobile-download-image"
+              />
+            </div>
+            <button onClick={() => setShowMobileDownload(false)} className="cancel-button mobile-close-button">
+              Close
+            </button>
           </div>
         </div>
       )}
