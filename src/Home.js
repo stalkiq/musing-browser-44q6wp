@@ -6,7 +6,7 @@ export function Home() {
       <div className="home-container">
         <header className="home-header">
           <h1 className="home-title">
-            <span className="price-text">Price</span> a Pic
+            <span className="price-text">Price</span> a <span className="pic-text">Pic</span>
           </h1>
           <p className="home-subtitle">
             Transform your images into professional price catalogs
