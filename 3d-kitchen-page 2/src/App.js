@@ -6,7 +6,6 @@ import { EffectComposer, Selection, Outline, N8AO, TiltShift2, ToneMapping } fro
 import { Routes, Route, Link, useLocation } from "react-router-dom"
 import { Scene } from "./Scene"
 import { ImagePricer } from "./ImagePricer"
-import { Home } from "./Home"
 
 function Scene3D() {
   return (
@@ -25,28 +24,19 @@ function Scene3D() {
 
 export const App = () => {
   const location = useLocation()
-  const isHomePage = location.pathname === "/"
   
   return (
     <>
-      {!isHomePage && (
-        <nav className="nav-menu">
-          <Link to="/" className="nav-home">
-            Price a Pic
-          </Link>
-          <div className="nav-links">
-            <Link to="/3d-kitchen" className={location.pathname === "/3d-kitchen" ? "active" : ""}>
-              3D Kitchen
-            </Link>
-            <Link to="/image-pricer" className={location.pathname === "/image-pricer" ? "active" : ""}>
-              Image Pricer
-            </Link>
-          </div>
-        </nav>
-      )}
+      <nav className="nav-menu">
+        <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+          3D Kitchen
+        </Link>
+        <Link to="/image-pricer" className={location.pathname === "/image-pricer" ? "active" : ""}>
+          Image Pricer
+        </Link>
+      </nav>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/3d-kitchen" element={<Scene3D />} />
+        <Route path="/" element={<Scene3D />} />
         <Route path="/image-pricer" element={<ImagePricer />} />
       </Routes>
     </>
