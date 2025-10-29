@@ -35,9 +35,11 @@ export const App = () => {
             Price a Pic
           </Link>
           <div className="nav-links">
+            {/* HIDDEN - 3D Kitchen Nav Link
             <Link to="/3d-kitchen" className={location.pathname === "/3d-kitchen" ? "active" : ""}>
               3D Kitchen
             </Link>
+            */}
             <Link to="/image-pricer" className={location.pathname === "/image-pricer" ? "active" : ""}>
               Image Pricer
             </Link>
@@ -46,7 +48,9 @@ export const App = () => {
       )}
       <Routes>
         <Route path="/" element={<Home />} />
+        {/* HIDDEN - 3D Kitchen Route
         <Route path="/3d-kitchen" element={<Scene3D />} />
+        */}
         <Route path="/image-pricer" element={<ImagePricer />} />
       </Routes>
     </>

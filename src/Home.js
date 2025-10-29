@@ -20,11 +20,13 @@ export function Home() {
             <span className="feature-cta">Start Pricing →</span>
           </Link>
 
+          {/* HIDDEN - 3D Kitchen Demo 
           <Link to="/3d-kitchen" className="feature-card feature-card-3d">
             <h2>3D Kitchen Demo</h2>
             <p>Explore our interactive 3D kitchen showroom. Hover over items to see names and prices with stunning animations.</p>
             <span className="feature-cta">Explore Demo →</span>
           </Link>
+          */}
         </div>
 
         <section className="how-it-works">

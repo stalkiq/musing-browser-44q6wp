@@ -754,8 +754,8 @@ body {
 
 /* Features Grid */
 .features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  justify-content: center;
   gap: 2rem;
   margin-bottom: 4rem;
 }
@@ -774,6 +774,8 @@ body {
   position: relative;
   overflow: hidden;
   min-height: 280px;
+  max-width: 500px;
+  width: 100%;
 }
 
 .feature-card::before {
